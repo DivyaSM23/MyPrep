@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🌟 Divya's Dream Job Prep Planner 💖 (Interactive)</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* CUTE & GIRLY COLOR PALETTE */
+        :root {
+            --primary-color: #e57373; /* Light Red/Coral Pink */
+            --secondary-color: #ba68c8; /* Light Purple */
+            --accent-color: #4db6ac;  /* Mint Green */
+            --break-day-color: #f8bbd0; /* Soft Pink */
+            --oa-day-color: #fffde7; /* Creamy Yellow */
+            --text-color: #4a4a4a; /* Dark Gray */
+            --header-bg: #f3e5f5; /* Very Light Lavender */
+            --shadow-color: rgba(229, 115, 115, 0.2);
+        }
+
+        body {
+            font-family: 'Quicksand', sans-serif;
+            margin: 0;
+            padding: 30px 20px;
+            background-color: #fffafa; /* Snow White background */
+            color: var(--text-color);
+        }
+
+        h1 {
+            color: var(--secondary-color);
+            text-align: center;
+            margin-bottom: 5px;
+            font-weight: 700;
+            text-shadow: 1px 1px 3px var(--shadow-color);
+        }
+
+        .header-info {
+            text-align: center;
+            margin-bottom: 25px;
+            color: #888;
+            font-size: 1.1em;
+            font-weight: 600;
+        }
+
+        /* PROGRESS BAR STYLING */
+        .progress-container {
+            width: 90%;
+            max-width: 1100px;
+            margin: 0 auto 30px;
+            background-color: #fce4ec; 
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px var(--shadow-color);
+        }
+
+        .progress-bar {
+            height: 35px;
+            background-color: var(--primary-color);
+            text-align: center;
+            line-height: 35px;
+            color: white;
+            transition: width 0.4s ease-in-out;
+            font-weight: 700;
+            font-size: 1em;
+            letter-spacing: 0.5px;
+        }
+
+        /* TABLE STYLING */
+        table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0 10px;
+            box-shadow: 0 0 25px rgba(0, 0, 0, 0.08);
+            background-color: white;
+            border-radius: 15px;
+            overflow: hidden;
+        }
+
+        th, td {
+            padding: 15px 12px;
+            text-align: left;
+            border: none;
+            vertical-align: middle;
+        }
+
+        th {
+            background-color: var(--header-bg);
+            color: var(--secondary-color);
+            font-weight: 700;
+            text-transform: uppercase;
+            font-size: 0.85em;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+
+        tr {
+            background-color: white;
+            border-radius: 10px;
+            transition: all 0.3s;
+            border-left: 5px solid transparent;
+            cursor: pointer; /* Makes rows look clickable */
+        }
+        tr.completed-row {
+             cursor: default; 
+        }
+
+        tr:not(.completed-row):hover {
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            transform: translateY(-2px);
+            background-color: #fffbe3; /* Light hover effect */
+        }
+
+        /* ROW VARIATIONS (Same as before) */
+        .checkpoint-row { background-color: #fce4ec; font-weight: 600; border-left: 5px solid var(--primary-color); }
+        .break-day-row { background-color: var(--break-day-color); border-left: 5px solid var(--secondary-color); }
+        .oa-day-row { background-color: var(--oa-day-color); border-left: 5px solid #ffcc80; }
+        .completed-row { background-color: #e8f5e9; opacity: 0.8; border-left: 5px solid var(--accent-color); }
+        .completed-row td { color: #757575; }
+        .completed-row .affirmation-cell { text-decoration: line-through; }
+        
+        /* INDIVIDUAL CELL STYLING */
+        .days-remaining-cell { font-weight: 700; color: var(--primary-color); text-align: center; font-size: 1.1em; }
+        .affirmation-cell { font-style: italic; color: var(--secondary-color); font-size: 0.95em; }
+        .editable-cell { cursor: pointer; border: 1px solid transparent; min-width: 150px; }
+        .editable-cell:focus { outline: none; border: 1px solid var(--accent-color); background-color: #f7fcfc; }
+        .qs-input { width: 50px; padding: 5px; border: 1px solid #ccc; border-radius: 5px; text-align: center; font-family: 'Quicksand', sans-serif; font-weight: 600; color: var(--primary-color); transition: border-color 0.2s; }
+        .qs-input:focus { border-color: var(--accent-color); outline: none; }
+        .checkbox-label { display: flex; align-items: center; font-size: 0.9em; color: var(--text-color); }
+        input[type="checkbox"] { transform: scale(1.3); cursor: pointer; accent-color: var(--accent-color); margin-right: 8px; }
+        .completion-status { font-weight: 700; text-align: center; font-size: 1.1em; color: #9e9e9e; }
+        .completion-status.complete { color: var(--accent-color); }
+
+        /* MODAL STYLING */
+        .modal {
+            display: none; 
+            position: fixed; 
+            z-index: 20; 
+            left: 0;
+            top: 0;
+            width: 100%; 
+            height: 100%; 
+            overflow: auto; 
+            background-color: rgba(0,0,0,0.4); 
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: 10% auto; 
+            padding: 30px;
+            border: none;
+            width: 80%;
+            max-width: 700px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            animation: fadeIn 0.3s;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .close-btn {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close-btn:hover,
+        .close-btn:focus {
+            color: var(--primary-color);
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .modal-content h2 {
+            color: var(--secondary-color);
+            margin-top: 0;
+            border-bottom: 2px solid var(--header-bg);
+            padding-bottom: 10px;
+        }
+
+        .question-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .question-item {
+            border: 1px solid var(--header-bg);
+            padding: 15px;
+            margin-bottom: 15px;
+            border-radius: 8px;
+            background-color: #fafafa;
+        }
+        
+        .question-item strong {
+            display: block;
+            color: var(--primary-color);
+            margin-bottom: 5px;
+            font-size: 1.1em;
+        }
+
+        .question-item p {
+            margin: 5px 0 0;
+            font-size: 0.9em;
+            color: #666;
+            font-style: italic;
+        }
+        
+        .question-item a {
+            color: var(--accent-color);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+    </style>
+</head>
+<body>
+
+    <h1>💖 Divya's Dream Job Prep Planner 👑</h1>
+    <div class="header-info">
+        Starting **Oct 15, 2024** | Interview Prep Ends **Nov 13, 2024**
+    </div>
+
+    <div class="progress-container">
+        <div id="progressBar" class="progress-bar" style="width: 0%;">0% Complete</div>
+    </div>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Day</th>
+                <th>Date</th>
+                <th>Days Left</th>
+                <th>Motivation!</th>
+                <th>DSA Focus (Goal)</th>
+                <th>Qs Solved</th>
+                <th>Project/SQL Task</th>
+                <th>Notes/Action</th>
+                <th>Done!</th>
+            </tr>
+        </thead>
+        <tbody id="roadmapTableBody">
+            </tbody>
+    </table>
+
+    <div id="questionModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn">&times;</span>
+            <h2 id="modalDayTitle"></h2>
+            <ul id="modalQuestionList" class="question-list">
+                </ul>
+        </div>
+    </div>
+
+    <script>
+        // --- 1. JSON Data ---
+        const roadmapData = [
+            // Note: The 'dsaFocus' cell will now OPEN THE MODAL when clicked.
+            { "day": 1, "date": "Oct 15 (Tue)", "daysRemaining": 30, "affirmation": "I will build my foundation today, one concept at a time.", "dsaFocus": "Graphs: Basics (Representation, Traversal - BFS, DFS).", "dsaQsGoal": 5, "otherFocus": "Project: Setup React/Node.js learning environment & 'Hello World'.", "checkpoint": "Review existing projects for presentation points.", "isBreakDay": false, "oaDay": false, "qsDone": 0, "otherTaskDone": false },
+            { "day": 2, "date": "Oct 16 (Wed)", "daysRemaining": 29, "affirmation": "Consistency is the bridge between my goals and my achievements.", "dsaFocus": "Graphs: Topological Sort, Cycle Detection (Directed/Undirected).", "dsaQsGoal": 5, "otherFocus": "Project: Continue React/Node.js basics (Components, State, Props).", "checkpoint": "", "isBreakDay": false, "oaDay": false, "qsDone": 0, "otherTaskDone": false },
+            { "day": 3, "date": "Oct 17 (Thu)", "daysRemaining": 28, "affirmation": "I am focused, and my efforts today will pay off tomorrow.", "dsaFocus": "Simple Graph Algos: Dijkstra's Algorithm.", "dsaQsGoal": 4, "otherFocus": "Project: Apply basic React/Node to Collaborative Scheduler UI.", "checkpoint": "", "isBreakDay": false, "oaDay": false, "qsDone": 0, "otherTaskDone": false },
+            { "day": 4, "date": "Oct 18 (Fri)", "daysRemaining": 27, "affirmation": "I embrace challenges; they make me stronger.", "dsaFocus": "Simple Graph Algos: Kruskal's/Prim's MST.", "dsaQsGoal": 4, "otherFocus": "Web Dev: Review Python/Flask structure. Document key AI Twin endpoints.", "checkpoint": "", "isBreakDay": false, "oaDay": false, "qsDone": 0, "otherTaskDone": false },
+            { "day": 5, "date": "Oct 19 (Sat)", "daysRemaining": 26, "affirmation": "I've completed my first week of focused prep!", "dsaFocus": "Review: Re-solve 1 medium problem from each of the last 4 days.", "dsaQsGoal": 4, "otherFocus": "Light: Personal/Wellness Break. Read or relax.", "checkpoint": "Checkpoint 1: Review & Track progress.", "isBreakDay": true, "oaDay": false, "qsDone": 0, "otherTaskDone": false },
+            { "day": 6, "date": "Oct 20 (Sun)", "daysRemaining": 25, "affirmation": "Every line of code I write is a step closer to my dream job.", "dsaFocus": "DP (Advanced): Start with 2D DP (Grid problems, Knapsack).", "dsaQsGoal": 5, "otherFocus": "Project: Major feature update for the AI Twin Project.", "checkpoint": "", "isBreakDay": false, "oaDay": false, "qsDone": 0, "otherTaskDone": false },
+            { "day": 7, "date": "Oct 21 (Mon)", "daysRemaining": 24, "affirmation": "My mind is sharp, and I can conquer complex problems.", "dsaFocus": "DP (Advanced): String DP (LCS, Edit Distance).", "dsaQsGoal": 5, "otherFocus": "Project: Collaborative Scheduler backend logic.", "checkpoint": "", "isBreakDay": false, "oaDay": false, "qsDone": 0, "otherTaskDone": false },
+            { "day": 8, "date": "Oct 22 (Tue)", "daysRemaining": 23, "affirmation": "I trust the process and the plan I have laid out.", "dsaFocus": "Linked List: Medium/Hard (Reverse LL II, Detect & Remove Loop, Intersection).", "dsaQsGoal": 5, "otherFocus": "SQL: Start SQL Basics (SELECT, WHERE, ORDER BY, Aggregate Fns).", "checkpoint": "", "isBreakDay": false, "oaDay": false, "qsDone": 0, "otherTaskDone": false },
+            { "day": 9, "date": "Oct 23 (Wed)", "daysRemaining": 22, "affirmation": "I transform my efforts into excellence.", "dsaFocus": "Trees/BST (Advanced): LCA in BST/BT, Serialize/Deserialize.", "dsaQsGoal": 5, "otherFocus": "SQL: Joins (INNER, LEFT, RIGHT, FULL), Subqueries.", "checkpoint": "", "isBreakDay": false, "oaDay": false, "qsDone": 0, "otherTaskDone": false },
+            { "day": 10, "date": "Oct 24 (Thu)", "daysRemaining": 21, "affirmation": "Halfway through the initial ramp-up! I'm unstoppable.", "dsaFocus": "Review: Re-solve one DP, one LL, one Tree/BST problem.", "dsaQsGoal": 3, "otherFocus": "Light: Practice 3-5 SQL queries with Joins.", "checkpoint": "Checkpoint 2: Write down 3 'STAR' stories for behavioral interviews.", "isBreakDay": true, "oaDay": false, "qsDone": 0, "otherTaskDone": false },
+            { "day": 11, "date": "Oct 25 (Fri)", "daysRemaining": 20, "affirmation": "I welcome the opportunity to learn and grow today.", "dsaFocus": "Heaps: Basics (Min/Max Heap), Top K problems, K-way merge.", "dsaQsGoal": 5, "otherFocus": "SQL: Advanced SQL (Window Functions - RANK, PARTITION BY).", "checkpoint": "", "isBreakDay": false, "oaDay": false, "qsDone": 0, "otherTaskDone": false },
+            { "day": 12, "date": "Oct 26 (Sat)", "daysRemaining": 19, "affirmation": "My preparation is thorough and my confidence is high.", "dsaFocus": "Greedy Algorithms: Activity Selection, Knapsack, Intervals.", "dsaQsGoal": 5, "otherFocus": "SQL: Schema Design & ER Diagrams. Review Normalization forms.", "checkpoint": "", "isBreakDay": false, "oaDay": false, "qsDone": 0, "otherTaskDone": false },
+            { "day": 13, "date": "Oct 27 (Sun)", "daysRemaining": 18, "affirmation": "OA Prep - I am focused and ready for this phase.", "dsaFocus": "Review: Pick 1 medium-level problem (Sliding Window, Hashing).", "dsaQsGoal": 2, "otherFocus": "Light: Read up on the specific OA company/role.", "checkpoint": "Focus on rest and mental preparation for OAs.", "isBreakDay": false, "oaDay": true, "qsDone": 0, "otherTaskDone": false },
+            { "day": 14, "date": "Oct 28 (Mon)", "daysRemaining": 17, "affirmation": "OA Day - My execution will be precise.", "dsaFocus": "Review: Pick 1 medium-level problem (Two Pointers, Monotonic Stack).", "dsaQsGoal": 1, "otherFocus": "Light: Relax and recharge after your OA.", "checkpoint": "", "isBreakDay": false, "oaDay": true, "qsDone": 0, "otherTaskDone": false },
+            { "day": 15, "date": "Oct 29 (Tue)", "daysRemaining": 16, "affirmation": "I'm maintaining my core prep while tackling the OAs!", "dsaFocus": "Review: Pick 1 medium-level problem (Tree Traversal).", "dsaQsGoal": 1, "otherFocus": "Light: Quick review of your Tour Buddy project technical challenges.", "checkpoint": "Checkpoint 3: Review & Track.", "isBreakDay": true, "oaDay": true, "qsDone": 0, "otherTaskDone": false },
+            { "day": 16, "date": "Oct 30 (Wed)", "daysRemaining": 15, "affirmation": "OA Day - I am focused and resilient.", "dsaFocus": "Review: Pick 1 medium-level problem (1D DP).", "dsaQsGoal": 1, "otherFocus": "Light: Work on your ML Project documentation (detailed README).", "checkpoint": "", "isBreakDay": false, "oaDay": true, "qsDone": 0, "otherTaskDone": false },
+            { "day": 17, "date": "Oct 31 (Thu)", "daysRemaining": 14, "affirmation": "OA Day - I trust my preparation completely.", "dsaFocus": "Review: Solve a Random Medium Problem tagged 'Interview Prep.'", "dsaQsGoal": 2, "otherFocus": "Light: Quick-Fix/Refactor for any of your 4 projects.", "checkpoint": "", "isBreakDay": false, "oaDay": true, "qsDone": 0, "otherTaskDone": false },
+            { "day": 18, "date": "Nov 1 (Fri)", "daysRemaining": 13, "affirmation": "The hard work is done; now is the time to refine my skills.", "dsaFocus": "Mixed Practice: 1 Medium Q each for DP, Graphs, Linked List.", "dsaQsGoal": 4, "otherFocus": "Project: Fully integrate a React/Node component into an existing project.", "checkpoint": "", "isBreakDay": false, "oaDay": false, "qsDone": 0, "otherTaskDone": false },
+            { "day": 19, "date": "Nov 2 (Sat)", "daysRemaining": 12, "affirmation": "I have the knowledge, and I have the skills to succeed.", "dsaFocus": "Sorting Algos: Advanced Sorting (Merge Sort, Quick Sort), Kth Element.", "dsaQsGoal": 5, "otherFocus": "Web Dev/Project: Tour Buddy - Focus on mapping integration/clean user flow.", "checkpoint": "", "isBreakDay": false, "oaDay": false, "qsDone": 0, "otherTaskDone": false },
+            { "day": 20, "date": "Nov 3 (Sun)", "daysRemaining": 11, "affirmation": "I am ready to crush the final leg of my prep!", "dsaFocus": "Full Mock Interview: Solve 2-3 random medium/hard problems (Timed).", "dsaQsGoal": 3, "otherFocus": "Light: Review SQL notes and solve 5-7 challenging queries.", "checkpoint": "Checkpoint 4: Self-evaluate mock interview & focus area.", "isBreakDay": true, "oaDay": false, "qsDone": 0, "otherTaskDone": false },
+            { "day": 21, "date": "Nov 4 (Mon)", "daysRemaining": 10, "affirmation": "I will execute my solutions with clarity and confidence.", "dsaFocus": "Mixed Practice: 1 Medium Q each for Heaps, Binary Search, Sliding Window.", "dsaQsGoal": 4, "otherFocus": "Project: Final polish and documentation for ML Projects.", "checkpoint": "", "isBreakDay": false, "oaDay": false, "qsDone": 0, "otherTaskDone": false },
+            { "day": 22, "date": "Nov 5 (Tue)", "daysRemaining": 9, "affirmation": "My focus is absolute, and my goal is within reach.", "dsaFocus": "Monotonic Stack/Queue: Advanced problems (e.g., Largest Rectangle in Histogram).", "dsaQsGoal": 5, "otherFocus": "SQL/DBMS: Practice writing complex queries (Joins, Window Fns).", "checkpoint": "", "isBreakDay": false, "oaDay": false, "qsDone": 0, "otherTaskDone": false },
+            { "day": 23, "date": "Nov 6 (Wed)", "daysRemaining": 8, "affirmation": "I communicate my thought process clearly and effectively.", "dsaFocus": "Hashing: Advanced techniques, Rolling Hash.", "dsaQsGoal": 5, "otherFocus": "Project: Final polish and preparation for the AI Twin presentation.", "checkpoint": "", "isBreakDay": false, "oaDay": false, "qsDone": 0, "otherTaskDone": false },
+            { "day": 24, "date": "Nov 7 (Thu)", "daysRemaining": 7, "affirmation": "I perform best when challenged.", "dsaFocus": "Two Pointers/Sliding Window: Hard problems, variable-size windows.", "dsaQsGoal": 5, "otherFocus": "Web Dev/Project: Collaborative Scheduler - ensure clean UI/UX for presentation.", "checkpoint": "", "isBreakDay": false, "oaDay": false, "qsDone": 0, "otherTaskDone": false },
+            { "day": 25, "date": "Nov 8 (Fri)", "daysRemaining": 6, "affirmation": "My dedication is unmatched! I am powerful.", "dsaFocus": "MOCK INTERVIEW 2: Solve 2-3 random medium/hard problems.", "dsaQsGoal": 3, "otherFocus": "Light: General review of CS Fundamentals (OS/DBMS/CN).", "checkpoint": "Checkpoint 5: Mock behavioral interview with a friend/mentor.", "isBreakDay": true, "oaDay": false, "qsDone": 0, "otherTaskDone": false },
+            { "day": 26, "date": "Nov 9 (Sat)", "daysRemaining": 5, "affirmation": "Today, I solidify my strongest concepts.", "dsaFocus": "Mixed Revision: Focus on your Weakest area identified in the mock interviews.", "dsaQsGoal": 4, "otherFocus": "SQL: Final quick revision of 20-25 important SQL queries.", "checkpoint": "", "isBreakDay": false, "oaDay": false, "qsDone": 0, "otherTaskDone": false },
+            { "day": 27, "date": "Nov 10 (Sun)", "daysRemaining": 4, "affirmation": "I am calm, prepared, and ready to succeed.", "dsaFocus": "Hot Topics: Review DP base cases, Graph traversals, Binary Search edge cases.", "dsaQsGoal": 4, "otherFocus": "Project: Create a single presentation slide for each of the 4 projects.", "checkpoint": "", "isBreakDay": false, "oaDay": false, "qsDone": 0, "otherTaskDone": false },
+            { "day": 28, "date": "Nov 11 (Mon)", "daysRemaining": 2, "affirmation": "I have put in the work, now I trust my ability.", "dsaFocus": "Full Revision: Re-solve the Top 10 most important problems you have solved.", "dsaQsGoal": 5, "otherFocus": "General Interview Prep: Review all your 'STAR' stories and HR questions.", "checkpoint": "", "isBreakDay": false, "oaDay": false, "qsDone": 0, "otherTaskDone": false },
+            { "day": 29, "date": "Nov 12 (Tue)", "daysRemaining": 1, "affirmation": "THE FINAL PUSH. I am confident and ready.", "dsaFocus": "Light Practice: Solve 1 Easy, 1 Medium problem. No new concepts.", "dsaQsGoal": 2, "otherFocus": "Rest & Polish: Review project presentation, review key DSA notes, and relax.", "checkpoint": "", "isBreakDay": false, "oaDay": false, "qsDone": 0, "otherTaskDone": false },
+            { "day": 30, "date": "Nov 13 (Wed)", "daysRemaining": 0, "affirmation": "I am Divya, and I am ready to be placed. Dream job, here I come!", "dsaFocus": "Zero coding. Mental preparation.", "dsaQsGoal": 0, "otherFocus": "Final review of confidence builders. Go to bed early!", "checkpoint": "FINAL CHECKPOINT. You did it!", "isBreakDay": false, "oaDay": false, "qsDone": 0, "otherTaskDone": false }
+        ];
+        
+        // --- 2. DSA QUESTION DATA (UPDATED) ---
+        const dsaQuestions = {
+            1: [
+                {
+                    name: "BFS of graph",
+                    link: "https://www.geeksforgeeks.org/problems/bfs-traversal-of-graph/1",
+                    learn: "Adjacency list representation of graph, BFS clear, think where this can be applied"
+                },
+                {
+                    name: "DFS of graph",
+                    link: "https://www.geeksforgeeks.org/problems/depth-first-traversal-for-a-graph/1",
+                    learn: "DFS, where we can apply this"
+                },
+                {
+                    name: "Detect cycle in an undirected graph",
+                    link: "https://www.geeksforgeeks.org/problems/detect-cycle-in-an-undirected-graph/1",
+                    learn: "Application of BFS/DFS for cycle detection."
+                },
+                {
+                    name: "Connected Components in an undirected graph",
+                    link: "https://www.geeksforgeeks.org/problems/connected-components-in-an-undirected-graph/1",
+                    learn: "Definition of connected components, edge list representation of graph."
+                },
+                {
+                    name: "Find the number of islands",
+                    link: "https://www.geeksforgeeks.org/problems/find-the-number-of-islands/1",
+                    learn: "Application of DFS/BFS, connected components, matrix traversal."
+                }
+            ],
+            // You can add more days here!
+        };
+
+
+        // --- 3. Local Storage and Data Persistence ---
+        const STORAGE_KEY = 'divya_placement_roadmap_v2_cute';
+        
+        let trackerData;
+        try {
+            const storedData = localStorage.getItem(STORAGE_KEY);
+            if (storedData) {
+                const parsedData = JSON.parse(storedData);
+                
+                trackerData = roadmapData.map((day, index) => {
+                    const storedDay = parsedData[index];
+                    if (storedDay) {
+                        return {
+                            ...day, 
+                            qsDone: storedDay.qsDone !== undefined ? storedDay.qsDone : 0,
+                            otherTaskDone: storedDay.otherTaskDone !== undefined ? storedDay.otherTaskDone : false
+                        };
+                    }
+                    return day;
+                });
+            } else {
+                trackerData = roadmapData;
+            }
+        } catch (e) {
+            console.error("Error loading roadmap data from local storage, using default.", e);
+            trackerData = roadmapData;
+        }
+
+        function saveProgress() {
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(trackerData));
+            updateProgressBar();
+        }
+
+        // --- 4. DOM Manipulation and Rendering ---
+        const tableBody = document.getElementById('roadmapTableBody');
+        const progressBar = document.getElementById('progressBar');
+        const modal = document.getElementById('questionModal');
+        const closeBtn = document.getElementsByClassName("close-btn")[0];
+        const totalDays = trackerData.length;
+
+        function getDayCompletion(day) {
+            const qsRatio = day.dsaQsGoal > 0 ? Math.min(day.qsDone / day.dsaQsGoal, 1) : 1;
+            const otherTaskWeight = day.otherTaskDone ? 1 : 0;
+            
+            const dsaWeight = 0.6;
+            const otherWeight = 0.4;
+            
+            return Math.floor((qsRatio * dsaWeight + otherTaskWeight * otherWeight) * 100);
+        }
+
+        function renderTable() {
+            tableBody.innerHTML = ''; 
+
+            trackerData.forEach((day, index) => {
+                const row = tableBody.insertRow();
+                let rowClasses = [];
+                const completionPercentage = getDayCompletion(day);
+                const isDayComplete = completionPercentage >= 95;
+
+                if (day.isBreakDay) rowClasses.push('break-day-row');
+                if (day.oaDay) rowClasses.push('oa-day-row');
+                if (day.day % 5 === 0) rowClasses.push('checkpoint-row');
+                if (isDayComplete) rowClasses.push('completed-row');
+
+                row.className = rowClasses.join(' ');
+                row.dataset.dayIndex = index; 
+
+                // Day, Date, Days Left, Affirmation
+                row.insertCell().textContent = `Day ${day.day}`;
+                row.insertCell().textContent = day.date;
+                const daysRemainingCell = row.insertCell();
+                daysRemainingCell.textContent = day.daysRemaining;
+                daysRemainingCell.className = 'days-remaining-cell';
+                const affirmationCell = row.insertCell();
+                affirmationCell.textContent = day.affirmation;
+                affirmationCell.className = 'affirmation-cell';
+
+                // 5. DSA Focus (CLICKABLE/Editable)
+                const dsaCell = row.insertCell();
+                dsaCell.textContent = day.dsaFocus;
+                dsaCell.className = 'editable-cell dsa-focus-cell';
+                dsaCell.contentEditable = true; 
+                dsaCell.dataset.dayIndex = index;
+                dsaCell.dataset.field = 'dsaFocus';
+                
+                // 6. Qs Solved Input
+                const qsInputCell = row.insertCell();
+                qsInputCell.innerHTML = `
+                    <input type="number" min="0" value="${day.qsDone}" data-day-index="${index}" class="qs-input" />
+                    <span> / ${day.dsaQsGoal}</span>
+                `;
+                qsInputCell.querySelector('input').addEventListener('change', handleQsInputChange);
+
+                // 7. Other Focus (Editable + Checkbox)
+                const otherCell = row.insertCell();
+                otherCell.innerHTML = `
+                    <label class="checkbox-label">
+                        <input type="checkbox" ${day.otherTaskDone ? 'checked' : ''} data-day-index="${index}" class="other-task-checkbox" />
+                        <span class="editable-cell" contenteditable="true" data-day-index="${index}" data-field="otherFocus">${day.otherFocus}</span>
+                    </label>
+                `;
+                otherCell.querySelector('.other-task-checkbox').addEventListener('change', handleOtherTaskChange);
+                otherCell.querySelector('.editable-cell').addEventListener('blur', handleCellEdit);
+
+                // 8. Checkpoint/Action
+                row.insertCell().textContent = day.checkpoint;
+
+                // 9. Done! (Completion Status)
+                const completionCell = row.insertCell();
+                completionCell.className = `completion-status ${isDayComplete ? 'complete' : ''}`;
+                completionCell.innerHTML = isDayComplete ? '✨ YES! ✨' : `${completionPercentage}%`;
+            });
+
+            // Add event listeners for the main click functionality (Row Click for Modal)
+            document.querySelectorAll('#roadmapTableBody tr').forEach(row => {
+                 row.addEventListener('click', handleRowClick);
+            });
+            
+            // Add blur listeners for text editing
+            document.querySelectorAll('.editable-cell').forEach(cell => {
+                 cell.addEventListener('blur', handleCellEdit, true);
+            });
+
+            updateProgressBar();
+        }
+
+        // --- 5. Event Handlers ---
+        
+        function handleRowClick(event) {
+            const target = event.target;
+            
+            // Prevent modal from opening if the click was on an input/checkbox/editable cell
+            if (target.tagName === 'INPUT' || target.closest('.editable-cell') || target.tagName === 'LABEL') {
+                return; 
+            }
+
+            const row = event.currentTarget;
+            const index = row.dataset.dayIndex;
+            const dayData = trackerData[index];
+            const questions = dsaQuestions[dayData.day];
+
+            if (!questions || questions.length === 0) {
+                alert(`No specific questions set for Day ${dayData.day}. Focus on the DSA Topic: ${dayData.dsaFocus}`);
+                return;
+            }
+
+            // Populate Modal
+            document.getElementById('modalDayTitle').textContent = `🎯 Day ${dayData.day}: ${dayData.dsaFocus}`;
+            const questionList = document.getElementById('modalQuestionList');
+            questionList.innerHTML = ''; // Clear previous content
+
+            questions.forEach(q => {
+                const item = document.createElement('li');
+                item.className = 'question-item';
+                item.innerHTML = `
+                    <strong><a href="${q.link}" target="_blank">${q.name}</a></strong>
+                    <p>✨ What you will learn: ${q.learn}</p>
+                `;
+                questionList.appendChild(item);
+            });
+
+            modal.style.display = "block";
+        }
+
+        // Close Modal functions
+        closeBtn.onclick = function() {
+            modal.style.display = "none";
+        }
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+        
+        // Tracking Handlers
+        function handleQsInputChange(event) {
+            const index = event.target.dataset.dayIndex;
+            const value = parseInt(event.target.value) || 0;
+            trackerData[index].qsDone = value;
+            renderTable(); 
+            saveProgress();
+        }
+
+        function handleOtherTaskChange(event) {
+            const index = event.target.dataset.dayIndex;
+            trackerData[index].otherTaskDone = event.target.checked;
+            renderTable(); 
+            saveProgress();
+        }
+
+        function handleCellEdit(event) {
+            const cell = event.target;
+            const index = cell.dataset.dayIndex;
+            const field = cell.dataset.field;
+            
+            // Only update if the field exists on the object
+            if (field && trackerData[index]) {
+                 trackerData[index][field] = cell.textContent;
+                 saveProgress();
+            }
+        }
+
+        function updateProgressBar() {
+            const totalCompletion = trackerData.reduce((sum, day) => sum + getDayCompletion(day), 0);
+            const overallPercentage = Math.round(totalCompletion / totalDays);
+            
+            progressBar.style.width = `${overallPercentage}%`;
+            progressBar.textContent = `${overallPercentage}% Overall Progress`;
+
+            if (overallPercentage >= 95) {
+                progressBar.style.backgroundColor = '#4db6ac'; 
+            } else {
+                progressBar.style.backgroundColor = '#e57373'; 
+            }
+        }
+
+        // --- 6. Initial Load ---
+        document.addEventListener('DOMContentLoaded', () => {
+            renderTable();
+        });
+    </script>
+
+</body>
+</html>
