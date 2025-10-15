@@ -260,9 +260,10 @@
     <script>
         // --- 1. JSON Data ---
         const roadmapData = [
-            // Note: The 'dsaFocus' cell will now OPEN THE MODAL when clicked.
-            { "day": 1, "date": "Oct 15 (Tue)", "daysRemaining": 30, "affirmation": "I will build my foundation today, one concept at a time.", "dsaFocus": "Graphs: Basics (Representation, Traversal - BFS, DFS).", "dsaQsGoal": 5, "otherFocus": "Project: Setup React/Node.js learning environment & 'Hello World'.", "checkpoint": "Review existing projects for presentation points.", "isBreakDay": false, "oaDay": false, "qsDone": 0, "otherTaskDone": false },
-            { "day": 2, "date": "Oct 16 (Wed)", "daysRemaining": 29, "affirmation": "Consistency is the bridge between my goals and my achievements.", "dsaFocus": "Graphs: Topological Sort, Cycle Detection (Directed/Undirected).", "dsaQsGoal": 5, "otherFocus": "Project: Continue React/Node.js basics (Components, State, Props).", "checkpoint": "", "isBreakDay": false, "oaDay": false, "qsDone": 0, "otherTaskDone": false },
+            // DAY 1: Marked as DONE
+            { "day": 1, "date": "Oct 15 (Tue)", "daysRemaining": 30, "affirmation": "I will build my foundation today, one concept at a time.", "dsaFocus": "Graphs: Basics (Representation, Traversal - BFS, DFS).", "dsaQsGoal": 5, "otherFocus": "Learnt about API, request, response, URL, designed sample get'.", "checkpoint": "Review existing projects for presentation points.", "isBreakDay": false, "oaDay": false, "qsDone": 5, "otherTaskDone": true },
+            // DAY 2: UPDATED FOR OCT 16TH
+            { "day": 2, "date": "Oct 16 (Wed)", "daysRemaining": 29, "affirmation": "Consistency is the bridge between my goals and my achievements.", "dsaFocus": "Application of BFS & Monotonic Stack Revision.", "dsaQsGoal": 5, "otherFocus": "build normal logging system in flask", "checkpoint": "Revise Monotonic Stack concepts before coding the day's questions.", "isBreakDay": false, "oaDay": false, "qsDone": 0, "otherTaskDone": false },
             { "day": 3, "date": "Oct 17 (Thu)", "daysRemaining": 28, "affirmation": "I am focused, and my efforts today will pay off tomorrow.", "dsaFocus": "Simple Graph Algos: Dijkstra's Algorithm.", "dsaQsGoal": 4, "otherFocus": "Project: Apply basic React/Node to Collaborative Scheduler UI.", "checkpoint": "", "isBreakDay": false, "oaDay": false, "qsDone": 0, "otherTaskDone": false },
             { "day": 4, "date": "Oct 18 (Fri)", "daysRemaining": 27, "affirmation": "I embrace challenges; they make me stronger.", "dsaFocus": "Simple Graph Algos: Kruskal's/Prim's MST.", "dsaQsGoal": 4, "otherFocus": "Web Dev: Review Python/Flask structure. Document key AI Twin endpoints.", "checkpoint": "", "isBreakDay": false, "oaDay": false, "qsDone": 0, "otherTaskDone": false },
             { "day": 5, "date": "Oct 19 (Sat)", "daysRemaining": 26, "affirmation": "I've completed my first week of focused prep!", "dsaFocus": "Review: Re-solve 1 medium problem from each of the last 4 days.", "dsaQsGoal": 4, "otherFocus": "Light: Personal/Wellness Break. Read or relax.", "checkpoint": "Checkpoint 1: Review & Track progress.", "isBreakDay": true, "oaDay": false, "qsDone": 0, "otherTaskDone": false },
@@ -322,7 +323,33 @@
                     learn: "Application of DFS/BFS, connected components, matrix traversal."
                 }
             ],
-            // You can add more days here!
+            2: [
+                {
+                    name: "Shortest source to destination path",
+                    link: "https://www.geeksforgeeks.org/problems/shortest-source-to-destination-path3544/1",
+                    learn: "Classic BFS on a 2D grid. Practice using BFS to find the minimum steps/distance."
+                },
+                {
+                    name: "Maximum Weight Node (Simple Graph Traversal)",
+                    link: "https://www.geeksforgeeks.org/problems/maximum-weight-node--170645/1",
+                    learn: "Practice simple array-based graph representation (if applicable) and basic traversal/aggregation."
+                },
+                {
+                    name: "Shortest Path in Undirected Graph with Unit Weights",
+                    link: "https://takeuforward.org/plus/dsa/problems/shortest-path-in-undirected-graph-with-unit-weights",
+                    learn: "Understand the core concept: BFS *is* the shortest path algorithm for unweighted graphs (or graphs with unit weights)."
+                },
+                {
+                    name: "Maximum People Visible in a Line (Monotonic Stack Rev.)",
+                    link: "https://www.geeksforgeeks.org/problems/maximum-people-visible-in-a-line/1",
+                    learn: "Apply Monotonic Stack to find the next greater or smaller element efficiently, solidifying your revision."
+                },
+                {
+                    name: "Rotten Oranges (Multi-Source BFS)",
+                    link: "https://www.geeksforgeeks.org/problems/rotten-oranges2536/1",
+                    learn: "Master the Multi-Source BFS pattern, essential for problems where the wavefront starts from multiple points simultaneously."
+                }
+            ]
         };
 
 
@@ -352,6 +379,12 @@
         } catch (e) {
             console.error("Error loading roadmap data from local storage, using default.", e);
             trackerData = roadmapData;
+        }
+
+        // Apply completed status for Day 1 from the new roadmapData array
+        if (trackerData.length > 0 && trackerData[0].day === 1) {
+            trackerData[0].qsDone = 5;
+            trackerData[0].otherTaskDone = true;
         }
 
         function saveProgress() {
@@ -545,6 +578,7 @@
         // --- 6. Initial Load ---
         document.addEventListener('DOMContentLoaded', () => {
             renderTable();
+            saveProgress(); // Ensure initial save to capture Day 1 completion in local storage
         });
     </script>
 
