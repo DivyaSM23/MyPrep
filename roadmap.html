@@ -223,7 +223,7 @@
 
     <h1>💖 Divya's Dream Job Prep Planner 👑</h1>
     <div class="header-info">
-        Starting **Oct 15, 2024** | Interview Prep Ends **Nov 13, 2024**
+        Starting **Oct 15, 2025** | Interview Prep Ends **Nov 13, 2025**
     </div>
 
     <div class="progress-container">
@@ -260,12 +260,16 @@
     <script>
         // --- 1. JSON Data ---
         const roadmapData = [
-            // DAY 1: Marked as DONE
-            { "day": 1, "date": "Oct 15 (Tue)", "daysRemaining": 30, "affirmation": "I will build my foundation today, one concept at a time.", "dsaFocus": "Graphs: Basics (Representation, Traversal - BFS, DFS).", "dsaQsGoal": 5, "otherFocus": "Learnt about API, request, response, URL, designed sample get'.", "checkpoint": "Review existing projects for presentation points.", "isBreakDay": false, "oaDay": false, "qsDone": 5, "otherTaskDone": true },
-            // DAY 2: UPDATED FOR OCT 16TH
-            { "day": 2, "date": "Oct 16 (Wed)", "daysRemaining": 29, "affirmation": "Consistency is the bridge between my goals and my achievements.", "dsaFocus": "Application of BFS & Monotonic Stack Revision.", "dsaQsGoal": 5, "otherFocus": "build normal logging system in flask", "checkpoint": "Revise Monotonic Stack concepts before coding the day's questions.", "isBreakDay": false, "oaDay": false, "qsDone": 0, "otherTaskDone": false },
-            { "day": 3, "date": "Oct 17 (Thu)", "daysRemaining": 28, "affirmation": "I am focused, and my efforts today will pay off tomorrow.", "dsaFocus": "Simple Graph Algos: Dijkstra's Algorithm.", "dsaQsGoal": 4, "otherFocus": "Project: Apply basic React/Node to Collaborative Scheduler UI.", "checkpoint": "", "isBreakDay": false, "oaDay": false, "qsDone": 0, "otherTaskDone": false },
-            { "day": 4, "date": "Oct 18 (Fri)", "daysRemaining": 27, "affirmation": "I embrace challenges; they make me stronger.", "dsaFocus": "Simple Graph Algos: Kruskal's/Prim's MST.", "dsaQsGoal": 4, "otherFocus": "Web Dev: Review Python/Flask structure. Document key AI Twin endpoints.", "checkpoint": "", "isBreakDay": false, "oaDay": false, "qsDone": 0, "otherTaskDone": false },
+            // DAY 1: Completed
+            { "day": 1, "date": "Oct 15 (Tue)", "daysRemaining": 30, "affirmation": "I crushed my graph basics, momentum is mine!", "dsaFocus": "Graphs: Basics (Representation, Traversal - BFS, DFS).", "dsaQsGoal": 5, "otherFocus": "Project: Setup React/Node.js learning environment & 'Hello World'.", "checkpoint": "Review existing projects for presentation points.", "isBreakDay": false, "oaDay": false, "qsDone": 5, "otherTaskDone": true },
+            // DAY 2: DSA Complete, Project Incomplete
+            { "day": 2, "date": "Oct 16 (Wed)", "daysRemaining": 29, "affirmation": "Consistency is the bridge between my goals and my achievements.", "dsaFocus": "Application of BFS & Monotonic Stack Revision.", "dsaQsGoal": 5, "otherFocus": "Project: Continue React/Node.js basics (Components, State, Props).", "checkpoint": "Revise Monotonic Stack concepts before coding the day's questions.", "isBreakDay": false, "oaDay": false, "qsDone": 5, "otherTaskDone": false },
+            // DAY 3: DSA Complete, Project Incomplete
+            { "day": 3, "date": "Oct 17 (Thu)", "daysRemaining": 28, "affirmation": "I am focused, and my efforts today will pay off tomorrow.", "dsaFocus": "Shortest Path (Dijkstra) & Flood Fill.", "dsaQsGoal": 4, "otherFocus": "Project: Apply basic React/Node to Collaborative Scheduler UI.", "checkpoint": "Focus on PRIORITY QUEUE usage in Dijkstra's.", "isBreakDay": false, "oaDay": false, "qsDone": 4, "otherTaskDone": false },
+            // DAY 4: UPDATED FOCUS (MSTs + Heaps + Topological Sort)
+            { "day": 4, "date": "Oct 18 (Fri)", "daysRemaining": 27, "affirmation": "I embrace challenges; they make me stronger.", "dsaFocus": "Graph Wrap-up (Topological Sort) & Heaps/Greedy.", "dsaQsGoal": 5, 
+            "otherFocus": "**Catch-up Focus:** Web Dev: Review Python/Flask structure (Day 2 task) & React/Node UI integration for Scheduler (Day 3 task).", "checkpoint": "**Action:** Prioritize completing the Web Dev/Project tasks from Days 2 & 3.", "isBreakDay": false, "oaDay": false, "qsDone": 0, "otherTaskDone": false },
+            
             { "day": 5, "date": "Oct 19 (Sat)", "daysRemaining": 26, "affirmation": "I've completed my first week of focused prep!", "dsaFocus": "Review: Re-solve 1 medium problem from each of the last 4 days.", "dsaQsGoal": 4, "otherFocus": "Light: Personal/Wellness Break. Read or relax.", "checkpoint": "Checkpoint 1: Review & Track progress.", "isBreakDay": true, "oaDay": false, "qsDone": 0, "otherTaskDone": false },
             { "day": 6, "date": "Oct 20 (Sun)", "daysRemaining": 25, "affirmation": "Every line of code I write is a step closer to my dream job.", "dsaFocus": "DP (Advanced): Start with 2D DP (Grid problems, Knapsack).", "dsaQsGoal": 5, "otherFocus": "Project: Major feature update for the AI Twin Project.", "checkpoint": "", "isBreakDay": false, "oaDay": false, "qsDone": 0, "otherTaskDone": false },
             { "day": 7, "date": "Oct 21 (Mon)", "daysRemaining": 24, "affirmation": "My mind is sharp, and I can conquer complex problems.", "dsaFocus": "DP (Advanced): String DP (LCS, Edit Distance).", "dsaQsGoal": 5, "otherFocus": "Project: Collaborative Scheduler backend logic.", "checkpoint": "", "isBreakDay": false, "oaDay": false, "qsDone": 0, "otherTaskDone": false },
@@ -288,8 +292,6 @@
             { "day": 24, "date": "Nov 7 (Thu)", "daysRemaining": 7, "affirmation": "I perform best when challenged.", "dsaFocus": "Two Pointers/Sliding Window: Hard problems, variable-size windows.", "dsaQsGoal": 5, "otherFocus": "Web Dev/Project: Collaborative Scheduler - ensure clean UI/UX for presentation.", "checkpoint": "", "isBreakDay": false, "oaDay": false, "qsDone": 0, "otherTaskDone": false },
             { "day": 25, "date": "Nov 8 (Fri)", "daysRemaining": 6, "affirmation": "My dedication is unmatched! I am powerful.", "dsaFocus": "MOCK INTERVIEW 2: Solve 2-3 random medium/hard problems.", "dsaQsGoal": 3, "otherFocus": "Light: General review of CS Fundamentals (OS/DBMS/CN).", "checkpoint": "Checkpoint 5: Mock behavioral interview with a friend/mentor.", "isBreakDay": true, "oaDay": false, "qsDone": 0, "otherTaskDone": false },
             { "day": 26, "date": "Nov 9 (Sat)", "daysRemaining": 5, "affirmation": "Today, I solidify my strongest concepts.", "dsaFocus": "Mixed Revision: Focus on your Weakest area identified in the mock interviews.", "dsaQsGoal": 4, "otherFocus": "SQL: Final quick revision of 20-25 important SQL queries.", "checkpoint": "", "isBreakDay": false, "oaDay": false, "qsDone": 0, "otherTaskDone": false },
-            { "day": 27, "date": "Nov 10 (Sun)", "daysRemaining": 4, "affirmation": "I am calm, prepared, and ready to succeed.", "dsaFocus": "Hot Topics: Review DP base cases, Graph traversals, Binary Search edge cases.", "dsaQsGoal": 4, "otherFocus": "Project: Create a single presentation slide for each of the 4 projects.", "checkpoint": "", "isBreakDay": false, "oaDay": false, "qsDone": 0, "otherTaskDone": false },
-            { "day": 28, "date": "Nov 11 (Mon)", "daysRemaining": 2, "affirmation": "I have put in the work, now I trust my ability.", "dsaFocus": "Full Revision: Re-solve the Top 10 most important problems you have solved.", "dsaQsGoal": 5, "otherFocus": "General Interview Prep: Review all your 'STAR' stories and HR questions.", "checkpoint": "", "isBreakDay": false, "oaDay": false, "qsDone": 0, "otherTaskDone": false },
             { "day": 29, "date": "Nov 12 (Tue)", "daysRemaining": 1, "affirmation": "THE FINAL PUSH. I am confident and ready.", "dsaFocus": "Light Practice: Solve 1 Easy, 1 Medium problem. No new concepts.", "dsaQsGoal": 2, "otherFocus": "Rest & Polish: Review project presentation, review key DSA notes, and relax.", "checkpoint": "", "isBreakDay": false, "oaDay": false, "qsDone": 0, "otherTaskDone": false },
             { "day": 30, "date": "Nov 13 (Wed)", "daysRemaining": 0, "affirmation": "I am Divya, and I am ready to be placed. Dream job, here I come!", "dsaFocus": "Zero coding. Mental preparation.", "dsaQsGoal": 0, "otherFocus": "Final review of confidence builders. Go to bed early!", "checkpoint": "FINAL CHECKPOINT. You did it!", "isBreakDay": false, "oaDay": false, "qsDone": 0, "otherTaskDone": false }
         ];
@@ -327,12 +329,12 @@
                 {
                     name: "Shortest source to destination path",
                     link: "https://www.geeksforgeeks.org/problems/shortest-source-to-destination-path3544/1",
-                    learn: "Classic BFS on a 2D grid. Practice using BFS to find the minimum steps/distance."
+                    learn: "Classic BFS on a 2D grid (matrix). Practice using BFS to find the minimum steps/distance."
                 },
                 {
-                    name: "Maximum Weight Node (Simple Graph Traversal)",
-                    link: "https://www.geeksforgeeks.org/problems/maximum-weight-node--170645/1",
-                    learn: "Practice simple array-based graph representation (if applicable) and basic traversal/aggregation."
+                    name: "Rotten Oranges (Multi-Source BFS)",
+                    link: "https://www.geeksforgeeks.org/problems/rotten-oranges2536/1",
+                    learn: "Master the Multi-Source BFS pattern, essential for problems where the wavefront starts from multiple points simultaneously."
                 },
                 {
                     name: "Shortest Path in Undirected Graph with Unit Weights",
@@ -345,9 +347,58 @@
                     learn: "Apply Monotonic Stack to find the next greater or smaller element efficiently, solidifying your revision."
                 },
                 {
-                    name: "Rotten Oranges (Multi-Source BFS)",
-                    link: "https://www.geeksforgeeks.org/problems/rotten-oranges2536/1",
-                    learn: "Master the Multi-Source BFS pattern, essential for problems where the wavefront starts from multiple points simultaneously."
+                    name: "Maximum Weight Node (Simple Graph Traversal)",
+                    link: "https://www.geeksforgeeks.org/problems/maximum-weight-node--170645/1",
+                    learn: "Practice simple array-based graph representation (if applicable) and basic traversal/aggregation."
+                }
+            ],
+            3: [
+                {
+                    name: "Flood Fill Algorithm",
+                    link: "https://www.geeksforgeeks.org/problems/flood-fill-algorithm1856/1",
+                    learn: "Master the classic **DFS/BFS recursive application** on a matrix for area-filling problems."
+                },
+                {
+                    name: "Implementing Dijkstra (Set 1, Adj. Matrix)",
+                    link: "https://www.geeksforgeeks.org/problems/implementing-dijkstra-set-1-adjacency-matrix/1",
+                    learn: "Understand Dijkstra's foundational logic, the relaxation process, and how to implement it using simple arrays/a greedy approach (without Priority Queue)."
+                },
+                {
+                    name: "Path With Minimum Effort (Dijkstra/BFS)",
+                    link: "https://leetcode.com/problems/path-with-minimum-effort/description/",
+                    learn: "An excellent, difficult problem to apply **Dijkstra's using a Priority Queue** on a 2D grid, focusing on minimizing the maximum edge weight (a variation of shortest path)."
+                },
+                {
+                    name: "Find the City with the Smallest Number of Neighbors at a Threshold Distance",
+                    link: "https://leetcode.com/problems/find-the-city-with-the-smallest-number-of-neighbors-at-a-threshold-distance/description/",
+                    learn: "High-level application of **Dijkstra's** (or Floyd-Warshall) to find **all-pairs shortest paths**, a common requirement in medium/hard graph problems."
+                }
+            ],
+            4: [ // Updated for Day 4 Focus (Heaps/Greedy + Topological Sort)
+                {
+                    name: "Minimum Cost of Ropes (Greedy/Heap)",
+                    link: "https://www.geeksforgeeks.org/problems/minimum-cost-of-ropes-1587115620/1",
+                    learn: "A classic problem to implement the **Min-Heap (Priority Queue)** data structure and understand its application in greedy algorithms."
+                },
+                {
+                    name: "Topological Sort (Kahn's Algorithm - BFS)",
+                    link: "https://www.geeksforgeeks.org/problems/topological-sort/1",
+                    learn: "Master the **BFS-based** approach (Kahn's algorithm) for topological sorting, focusing on the In-degree array and queue structure."
+                },
+                {
+                    name: "Topological Sort (DFS)",
+                    link: "https://www.geeksforgeeks.org/problems/topological-sort/1",
+                    learn: "Master the **DFS-based** approach for topological sorting, focusing on recursion stack and finish time."
+                },
+                {
+                    name: "Coin Change (BFS shortest path variation)",
+                    link: "https://leetcode.com/problems/coin-change/?envType=problem-list-v2&envId=breadth-first-search",
+                    learn: "Review a non-traditional application of **BFS** where coins represent nodes and the number of steps represents the shortest path (minimum number of coins)."
+                },
+                {
+                    name: "Number of Provinces (Connected Components - DFS/BFS)",
+                    link: "https://leetcode.com/problems/number-of-provinces/description/?envType=problem-list-v2&envId=breadth-first-search",
+                    learn: "Quick review of graph traversal by solving the connected components problem on an adjacency matrix input."
                 }
             ]
         };
@@ -362,13 +413,15 @@
             if (storedData) {
                 const parsedData = JSON.parse(storedData);
                 
+                // Merge stored data with the latest roadmap structure
                 trackerData = roadmapData.map((day, index) => {
-                    const storedDay = parsedData[index];
+                    const storedDay = parsedData.find(d => d.day === day.day); // Find by day number
                     if (storedDay) {
                         return {
                             ...day, 
-                            qsDone: storedDay.qsDone !== undefined ? storedDay.qsDone : 0,
-                            otherTaskDone: storedDay.otherTaskDone !== undefined ? storedDay.otherTaskDone : false
+                            // Only load completion status if it's NOT the hardcoded updated status
+                            qsDone: storedDay.qsDone !== undefined ? storedDay.qsDone : day.qsDone,
+                            otherTaskDone: storedDay.otherTaskDone !== undefined ? storedDay.otherTaskDone : day.otherTaskDone
                         };
                     }
                     return day;
@@ -381,23 +434,12 @@
             trackerData = roadmapData;
         }
 
-        // Apply completed status for Day 1 from the new roadmapData array
-        if (trackerData.length > 0 && trackerData[0].day === 1) {
-            trackerData[0].qsDone = 5;
-            trackerData[0].otherTaskDone = true;
-        }
+        // --- 4. Core Functions ---
 
         function saveProgress() {
             localStorage.setItem(STORAGE_KEY, JSON.stringify(trackerData));
             updateProgressBar();
         }
-
-        // --- 4. DOM Manipulation and Rendering ---
-        const tableBody = document.getElementById('roadmapTableBody');
-        const progressBar = document.getElementById('progressBar');
-        const modal = document.getElementById('questionModal');
-        const closeBtn = document.getElementsByClassName("close-btn")[0];
-        const totalDays = trackerData.length;
 
         function getDayCompletion(day) {
             const qsRatio = day.dsaQsGoal > 0 ? Math.min(day.qsDone / day.dsaQsGoal, 1) : 1;
@@ -408,6 +450,13 @@
             
             return Math.floor((qsRatio * dsaWeight + otherTaskWeight * otherWeight) * 100);
         }
+        
+        // --- 5. DOM Manipulation and Rendering ---
+        const tableBody = document.getElementById('roadmapTableBody');
+        const progressBar = document.getElementById('progressBar');
+        const modal = document.getElementById('questionModal');
+        const closeBtn = document.getElementsByClassName("close-btn")[0];
+        const totalDays = trackerData.length;
 
         function renderTable() {
             tableBody.innerHTML = ''; 
@@ -485,7 +534,7 @@
             updateProgressBar();
         }
 
-        // --- 5. Event Handlers ---
+        // --- 6. Event Handlers ---
         
         function handleRowClick(event) {
             const target = event.target;
@@ -575,10 +624,10 @@
             }
         }
 
-        // --- 6. Initial Load ---
+        // --- 7. Initial Load ---
         document.addEventListener('DOMContentLoaded', () => {
             renderTable();
-            saveProgress(); // Ensure initial save to capture Day 1 completion in local storage
+            saveProgress();
         });
     </script>
 
